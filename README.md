@@ -90,17 +90,13 @@ you need to create a chennels on team and get chennel email from team. You can e
         Run when: Query matched
         
         Body       ----> webhook body template in json format
-        
+
         {
-          "short_description": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active.",
-          "log_levels": "{{#context.hits}}{{#_source}}{{logLevel}}{{/_source}}{{/context.hits}}",
-          "instances": "{{#context.hits}}{{#_source}}{{instance}}{{/_source}}{{/context.hits}}",
-          "transaction_id": "{{#context.hits}}{{#_source}}{{transactionId}}{{/_source}}{{/context.hits}}",
-          "message": "{{#context.hits}}{{#_source}}{{message}}{{/_source}}{{/context.hits}}",
-          "timestamp": "{{context.date}}",
-          "link": "{{context.link}}",
-           "all_context": "{{.}}"
+          "text": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active:\nLog Levels: '{{#context.hits}}{{#_source}}{{logLevel}}{{/_source}}{{/context.hits}}'\nInstances: '{{#context.hits}}{{#_source}}{{instance}}{{/_source}}{{/context.hits}}'\nTransactionId: '{{#context.hits}}{{#_source}}{{transactionId}}{{/_source}}{{/context.hits}}'\nMessage: '{{#context.hits}}{{#_source}}{{message}}{{/_source}}{{/context.hits}}'\nTimestamp: '{{context.date}}'\nLink: '{{context.link}}'",
+          "formattedText": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active:\n* Timestamp: '{{context.date}}'\n* Link: '{{context.link}}'"
         }
+
+        
         
 **did same for send logs to teams using email connector**
         
