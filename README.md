@@ -201,5 +201,15 @@ After that i was able to send messages to google chat workspace.. Below are the 
         Key: Content-Type
         Value: application/json
 
+## If you do not get any idea, how to format the logs.. 
+
+    use this in action body. It will give you complete logs. And you will get to know what flag you need to filter out from all logs information
+
+   {
+    "test": "All Context: {{.}}"
+    }
+
+    it will send all logs to the destination. You can easily filter require information from logs.  
+
 
 
