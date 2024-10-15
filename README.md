@@ -183,7 +183,7 @@ you need to create a chennels on team and get chennel email from team. You can e
         Key: Content-Type
         Value: application/json
 
-After that i was able to send messages to google chat workspace.. Below are the complete corrected information.. 
+**After that i was able to send messages to google chat workspace.. Below are the complete corrected information..**
 
 -    Webhook name: WEBHOOK4
 -    Connector setting:
@@ -209,7 +209,20 @@ After that i was able to send messages to google chat workspace.. Below are the 
     "test": "All Context: {{.}}"
     }
 
-    it will send all logs to the destination. You can easily filter require information from logs.  
+    it will send all logs to the destination. You can easily filter require information from logs. 
 
+    i got too much help by using above approach. like using below format to get all logs output and then filter the flage according to the requirement. 
 
+     {
+    "test": "All Context: {{.}}"
+    }
+
+## Correct webhook body format payload for extracting information from logs.
+
+        {
+          "text": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active:\nLog Levels: '{{#context.hits}}{{#_source}}{{logLevel}}{{/_source}}{{/context.hits}}'\nInstances: '{{#context.hits}}{{#_source}}{{instance}}{{/_source}}{{/context.hits}}'\nTransactionId: '{{#context.hits}}{{#_source}}{{transactionId}}{{/_source}}{{/context.hits}}'\nMessage: '{{#context.hits}}{{#_source}}{{message}}{{/_source}}{{/context.hits}}'\nTimestamp: '{{context.date}}'\nLink: '{{context.link}}'",
+          "formattedText": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active:\n* Timestamp: '{{context.date}}'\n* Link: '{{context.link}}'"
+        }
+
+       webhook body payload will extract information from logs and webhook will send it to destination..
 
