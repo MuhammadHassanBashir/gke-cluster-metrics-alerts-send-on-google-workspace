@@ -6,8 +6,8 @@
 
 Step to accomplish the task.
 
-- Install node exporters on kubernets cluster gmp-public namespace
-- Enable manager promethoues service on kubernetes cluster and manage collector on monitoring section
+- Install node exporters on kubernets cluster gmp-public namespace. 
+- Enable manager promethoues service on kubernetes cluster and manage collector on monitoring section. Now the install exports will export the metric and promethous services will get time series metric and collector will collect it.. Now you can create monitoring dashboard on google cloud with that metrics. And you can also create alerts base on that metrics. And send alerts to specfic destination. like In my case i am sending alert by using notification chennel named gcp cloud google chat to google chat workspace.
 - Create notification chennel service like **GOOGLE CHAT** under gcp cloud alert notification chennel. For this you need to give google chat space id here. You can get this from your google chat workspace. In order to add Google Chat as a notification channel, you must first add the **Google Cloud Monitoring** App to the chat space. You can add the app directly to a space by typing @Google Cloud Monitoring. I have checked google cannot install google cloud monitoring app by just typing on google chat work space console. You need to click on "+" there and search you google cloud monitoring app in search bar and then click on it to make it installable. After successfully installing the app. it would give you space-id that you can use in gcp alerts under notification chennel. And use this notification chennel in you alerts. GCP will send the alert notification to specfic assign destination..
 - You can also create dashboard for monitoring
 
@@ -16,7 +16,7 @@ Step to accomplish the task.
     https://cloud.google.com/monitoring/support/notification-options#google-chat
 
 
-## Sending alerts logs to teams chennel or google chat space
+## Sending application alerts logs to teams chennel or google chat space from elastic cloud
 
 Below are the links that would help on this..
 
@@ -43,7 +43,7 @@ For making elastic search query
     https://www.elastic.co/guide/en/kibana/current/rule-type-es-query.html#_add_action_variables_2
 
 
-## For sending logs to team
+## For sending logs to team from elastic cloud
 
 you need to create a chennels on team and get chennel email from team. You can easily get email by right clicking on teams chennel and you can use it elastic search alerts chennel for sending application logs on team..
 
@@ -147,5 +147,59 @@ you need to create a chennels on team and get chennel email from team. You can e
     you can also test your connector like email, teams, webhook.. etc in connectors section.. For this go to **Stack Management > Alerts and Insights> connectors**.
 
     And you can also see connectors logs under connectors section... 
+
+## I was testing the connector for webhook. but faced 400 bad request error. I was using the below information
+
+        Webhook name: WEBHOOK4
+        Connector setting:
+        method: POST
+        URL: https://chat.googleapis.com/v1/spaces/AAAAjnK_a3M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=JfKiIUzuSZX8UWIDjntsicO6Ak7_hB5e47pbPmmO0EY      ---> WEBHOOK URL GOT FROM GOOGLE CHAT WORKSPACE
+        Authentication: none
+        body: 
+        
+        {
+          "short_description": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active.",
+          "timestamp": "{{context.date}}",
+          "link": "{{context.link}}",
+          "all_context": "{{.}}"
+        
+        }
+        
+        but i with this i was facing 400bad request error.
+
+## Solution
+
+        During searching, I found that google chat workspace support json but with this format.
+        
+        {
+          "text": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active. Timestamp: {{context.date}} Link: {{context.link}} All Context: {{.}}"
+        }
+        
+        "text", should be included. I resolve first issue.. 
+        
+        RESOLVED 2ND ISSUE BY ADD Add **HTTP header** in my webhook connector. like given below 
+        
+        HTTP header
+        Key: Content-Type
+        Value: application/json
+
+After that i was able to send messages to google chat workspace.. Below are the complete corrected information.. 
+
+-    Webhook name: WEBHOOK4
+-    Connector setting:
+-    method: POST
+-    URL: https://chat.googleapis.com/v1/spaces/AAAAjnK_a3M/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=JfKiIUzuSZX8UWIDjntsicO6Ak7_hB5e47pbPmmO0EY      ---> WEBHOOK URL GOT FROM GOOGLE CHAT WORKSPACE
+-    Authentication: none
+-    body:   
+        
+        {
+          "text": "Alert Notification: Elasticsearch query rule '{{context.rule.name}}' is active. Timestamp: {{context.date}} Link: {{context.link}} All Context: {{.}}"
+        }
+
+
+-    HTTP header
+        Key: Content-Type
+        Value: application/json
+
 
 
