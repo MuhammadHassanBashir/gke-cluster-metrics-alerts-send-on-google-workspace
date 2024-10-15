@@ -102,7 +102,7 @@ you need to create a chennels on team and get chennel email from team. You can e
            "all_context": "{{.}}"
         }
         
-        **did same for send logs to teams using email connector**
+**did same for send logs to teams using email connector**
         
         Elastic-Cloud-SMTP (preconfigured)
         
@@ -132,12 +132,6 @@ you need to create a chennels on team and get chennel email from team. You can e
         - Message: {{#context.hits}}{{#_source}}{{message}}{{/_source}}{{/context.hits}}
         - Timestamp: {{context.date}}
         - Link: {{context.link}}
-
-
-
-
-
-
 
 
 ## curl command for testing the google chat space webhook 
