@@ -14,3 +14,30 @@ Step to accomplish the task.
 ## link for creating space-id 
 
     https://cloud.google.com/monitoring/support/notification-options#google-chat
+
+
+## Sending alerts logs to teams chennel.
+
+
+For alerts webhook configuration
+
+    https://www.elastic.co/guide/en/kibana/current/webhook-action-type.html
+    or 
+    
+    https://www.elastic.co/guide/en/kibana/current/cases-webhook-action-type.html
+    
+    or 
+
+    https://www.elastic.co/guide/en/kibana/current/create-and-manage-rules.html#defining-rules-actions-details
+
+   or 
+
+   https://www.elastic.co/guide/en/elasticsearch/reference/current/actions-webhook.html
+
+
+    
+For making elastic search query
+
+    https://www.elastic.co/guide/en/kibana/current/rule-type-es-query.html#_add_action_variables_2
+
+
