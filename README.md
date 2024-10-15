@@ -142,6 +142,10 @@ you need to create a chennels on team and get chennel email from team. You can e
           -d '{
             "text": "Alert: Elasticsearch query rule is active.\n\n- **Log Level**: ERROR\n- **Instance**: app-instance-01\n- **Transaction ID**: 12345\n- **Message**: Error message details\n- **Timestamp**: 2024-10-15T08:00:00Z\n- **Link**: https://your-log-url.com"
           }'
+## Test connector
 
+    you can also test your connector like email, teams, webhook.. etc in connectors section.. For this go to **Stack Management > Alerts and Insights> connectors**.
+
+    And you can also see connectors logs under connectors section... 
 
 
