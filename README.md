@@ -222,3 +222,11 @@ you need to create a chennels on team and get chennel email from team. You can e
 
        webhook body payload will extract information from logs and webhook will send it to destination..
 
+BOLD TEXT
+
+        {
+          "text": "Alert Notification: Elasticsearch query rule '{{context.alertName}}' is active:\n*Log Levels*: '{{#context.hits}}{{#_source}}{{logLevel}}{{/_source}}{{/context.hits}}'\n*Instances*: '{{#context.hits}}{{#_source}}{{instance}}{{/_source}}{{/context.hits}}'\n*TransactionId*: '{{#context.hits}}{{#_source}}{{transactionId}}{{/_source}}{{/context.hits}}'\n*Message*: '{{#context.hits}}{{#_source}}{{message}}{{/_source}}{{/context.hits}}'\n*Timestamp*: '{{context.date}}'\n*Link*: '{{context.link}}'",
+          "formattedText": "Alert Notification: Elasticsearch query rule '{{context.alertName}}' is active:\n* Timestamp: '{{context.date}}'\n* Link: '{{context.link}}'"
+        }
+
+
