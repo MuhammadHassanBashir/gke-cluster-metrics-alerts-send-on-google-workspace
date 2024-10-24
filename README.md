@@ -1,4 +1,39 @@
-# gke-cluster-metrics-alerts-send-on-google-workspace
+# Steps for Configuring GCP Alerting for GKE Pods Across All Projects:
+
+        Install Node Exporter and Kube-State Metrics Exporter:
+        
+        I installed the Node Exporter and Kube-State Metrics Exporter in all GKE clusters to collect relevant metrics.
+        Enable Managed Prometheus:
+        
+        I enabled Managed Prometheus on each GKE cluster and activated the Managed Collector via the GKE cluster dashboard.
+        Additionally, I enabled 13 components for cloud monitoring in each GKE cluster under GKE Cluster > Details > Features > Cloud Monitoring. These components include:
+        System, API Server, Scheduler, Controller Manager, Persistent Volume (Storage), Pods, Deployment, StatefulSet, DaemonSet, Horizontal Pod Autoscaler, cAdvisor, and Kubelet.
+        Verify Metrics Collection:
+        
+        To verify that the metrics were being collected correctly, I navigated to the GKE Cluster Dashboard > Metrics Explorer and ran the "up" query in PromQL.
+        The query returned logs, confirming that the Node Exporter and Kube-State Metrics were correctly configured in the cluster.
+        Aggregate Metrics from All Projects:
+        
+        Since I wanted to gather metrics from all GCP projects' GKE clusters into a single GCP project, I went to GKE Cluster Dashboard > Observability Scope > Metric Scope.
+        There, I added all other GCP projects to the current GCP project (e.g., disearch), allowing me to collect metrics from all the other projects into one place.
+        Configure Alerts:
+        
+        GCP already provides recommended alerts for GKE clusters, such as Pod Memory Utilization, Pod CPU Utilization, and Pod Restarts.
+        To enable these alerts:
+        Go to Kubernetes Engine > Observability and select the desired metric (Memory, CPU, etc.).
+        Click on Recommended Alerts, which include 3 pre-configured alerts for Pod CPU, Pod Memory, and Pod Restarts.
+        Select all three alerts and configure a notification channel by clicking on Manage Notifications. For the destination, I chose Google Chat and specified the desired Google Chat space for the alerts to be sent.
+        Once saved, GCP will automatically create these 3 alerts for the GKE clusters in the current project.
+        Customize Alerts for All Projects:
+        
+        By default, GCP creates alerts specific to the current project's GKE cluster, applying filters like project name or cluster ID.
+        To make the alerts applicable across all projects:
+        I navigated to the alerts in the current project, removed the filters that limited the alerts to a single project, and made them standard alerts for all projects.
+        Now, these alerts will collect metrics from all GKE clusters across all GCP projects. If any cluster pod exceeds the threshold in any project, a notification will be sent to the specified Google Chat space.
+        By following these steps, I successfully created 3 alerts that are responsible for collecting and sending notifications for all GCP project GKE clusters from a single GCP project.
+
+
+## gke-cluster-metrics-alerts-send-on-google-workspace
 
 ## Site Link
 
